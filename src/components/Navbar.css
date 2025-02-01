@@ -1,0 +1,32 @@
+.logo {
+  width: 150px;    
+}
+
+body {
+    background-color: white;
+}
+
+.link {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.sec-nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.main {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 150px;
+    padding-right: 150px;
+    align-items: center;
+}
+
+.inp {
+    height: 40px;
+}
