@@ -179,7 +179,7 @@ body {
   }
   
   .battery-bar-fill.low {
-    background-color: #f44336;
+    background-color: red !important;
   }     
   
   /* Spacing and Layout Adjustments */

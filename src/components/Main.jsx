@@ -1,65 +1,69 @@
 import "./Main.css";
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
-import img from "../assets/drone.avif";
+// import { useEffect, useState } from "react";
+// import styled from "styled-components";
+// import axios from "axios";
+// import img from "../assets/drone.avif";
 import { Link } from "react-router-dom";
+import drone from "../assets/drone-background.png"
+import plane from "../assets/plane.avif"
+import another_drone from "../assets/drone-ig.avif"
+import Footer from "./Footer";
 
 const Main = () => {
-    const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [searchTerm, setSearchTerm] = useState(""); // Search state
+    // const [items, setItems] = useState([]);
+    // const [loading, setLoading] = useState(true);
+    // const [searchTerm, setSearchTerm] = useState(""); // Search state
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await axios.get('/api/evtols');
+    // useEffect(() => {
+    //     const fetchProducts = async () => {
+    //         try {
+    //             const response = await axios.get('/api/evtols');
 
-                console.log("Full API Response:", response.data);
+    //             console.log("Full API Response:", response.data);
 
-                if (!Array.isArray(response.data.evolts)) {
-                    console.error("Expected an array but got:", response.data.evolts);
-                    return;
-                }
+    //             if (!Array.isArray(response.data.evolts)) {
+    //                 console.error("Expected an array but got:", response.data.evolts);
+    //                 return;
+    //             }
 
-                setItems(response.data.evolts);
-                setLoading(false);
-            } catch (error) {
-                console.error("Error fetching products:", error);
-                alert("Failed to fetch products. Check console for details.");
-            }
-        };
+    //             setItems(response.data.evolts);
+    //             setLoading(false);
+    //         } catch (error) {
+    //             console.error("Error fetching products:", error);
+    //             alert("Failed to fetch products. Check console for details.");
+    //         }
+    //     };
 
-        console.log("Fetching products...");
-        fetchProducts();
-    }, []);
+    //     console.log("Fetching products...");
+    //     fetchProducts();
+    // }, []);
 
-    // Function to filter items based on search input
-    const filteredItems = items.filter((item) =>
-        item.serialNumber.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    // // Function to filter items based on search input
+    // const filteredItems = items.filter((item) =>
+    //     item.serialNumber.toLowerCase().includes(searchTerm.toLowerCase())
+    // );
 
-    if (loading) {
-        return (
-            <StyledWrapper>
-                <div className="dot-spinner">
-                    <div className="dot-spinner__dot" />
-                    <div className="dot-spinner__dot" />
-                    <div className="dot-spinner__dot" />
-                    <div className="dot-spinner__dot" />
-                    <div className="dot-spinner__dot" />
-                    <div className="dot-spinner__dot" />
-                    <div className="dot-spinner__dot" />
-                    <div className="dot-spinner__dot" />
-                </div>
-            </StyledWrapper>
-        );
-    }
+    // if (loading) {
+    //     return (
+    //         <StyledWrapper>
+    //             <div className="dot-spinner">
+    //                 <div className="dot-spinner__dot" />
+    //                 <div className="dot-spinner__dot" />
+    //                 <div className="dot-spinner__dot" />
+    //                 <div className="dot-spinner__dot" />
+    //                 <div className="dot-spinner__dot" />
+    //                 <div className="dot-spinner__dot" />
+    //                 <div className="dot-spinner__dot" />
+    //                 <div className="dot-spinner__dot" />
+    //             </div>
+    //         </StyledWrapper>
+    //     );
+    // }
 
     return (
         <>
-            <section className="banner">
-                <div className="inner-div">
+            {/* <section className="banner"> */}
+                {/* <div className="inner-div">
                     <div className="inner-inner">
                         <h1 className="title">We Are here to Save the Day</h1>
                         <p className="more">
@@ -68,19 +72,19 @@ const Main = () => {
                             the voltage to keep things buzzing!
                         </p>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Search Bar */}
-                <input
+                {/* <input
                     type="search"
                     className="inp"
                     placeholder="Search by Serial Number..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                /> */}
 
                 {/* Grid for Products */}
-                <div className="grid">
+                {/* <div className="grid">
                     {filteredItems.length > 0 ? (
                         filteredItems.map((item) => (
                             <div className="product" key={item.id}>
@@ -100,69 +104,60 @@ const Main = () => {
                     ) : (
                         <p className="no-results">No results found</p>
                     )}
+                </div> */}
+            {/* </section> */}
+
+            <section className="banner">
+                <div className="inner-div">
+                    <div className="tell-div">There are many applications of<br></br> UAV technology that might<br></br> 
+                    surprise you</div>
+                    <Link className="start">Get Started</Link>
+                </div>
+                
+            </section>
+
+            <section className="under-banner">
+
+               <div className="pic-div">
+               <img src={drone} alt="" className="giant"/>
+               </div>
+                <h1 className="edge">Drones Use Cutting Edge Technologies &<br></br>
+                Products To Get The Best Results</h1>
+
+                <p className="small-header">AERIAL PHOTOGRAPHY</p>
+
+                <div className="div-background">
+                    <div className="div-left">The big standout-feature here is the 2.5 mile range. That’s more than twice the <br></br> range of the X-Star Premium Drone! If you’re familiar with the Phantom 3 Pro, then you might be wondering<br></br> what the Phantom 3 SE is missing.</div>
                 </div>
             </section>
+
+            <section className="left-right">
+                <div className="left-section">
+               <span className="collect">Real-time Analysis Of The Collected Data</span>
+               <p className="lower">Drone provides a quick means to gather information</p>
+                </div>
+
+                <div className="right-section">
+                    <div className="inner-right">
+                    <span className="collect">From Agriculture To Inspections</span>
+                    <p className="lower">Agricultural use could comprise 80% of the market</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <section className="final">
+                <h1 className="edge">Innovative Streaming & Publishing</h1>
+                <p className="div-left">Sprawling cities are great, but drone usage in film and TV is not limited to<br></br> ‘establishing’ shots anymore</p>
+
+                <div className="last-div">
+                    <img src={plane} alt="" className="tired" />
+                    <img src={another_drone} alt="" className="tired" />
+                </div>
+            </section>
+            <Footer/>
         </>
     );
 };
-
-const StyledWrapper = styled.div`
-  .dot-spinner {
-    --uib-size: 2.8rem;
-    --uib-speed: .9s;
-    --uib-color: #183153;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: var(--uib-size);
-    width: var(--uib-size);
-    margin-left: 700px;
-    margin-top: 200px;
-  }
-
-  .dot-spinner__dot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: 100%;
-    width: 100%;
-  }
-
-  .dot-spinner__dot::before {
-    content: '';
-    height: 20%;
-    width: 20%;
-    border-radius: 50%;
-    background-color: var(--uib-color);
-    transform: scale(0);
-    opacity: 0.5;
-    animation: pulse0112 calc(var(--uib-speed) * 1.111) ease-in-out infinite;
-    box-shadow: 0 0 20px rgba(18, 31, 53, 0.3);
-  }
-
-  @keyframes pulse0112 {
-    0%,
-    100% {
-      transform: scale(0);
-      opacity: 0.5;
-    }
-
-    50% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  .no-results {
-    text-align: center;
-    font-size: 18px;
-    color: #555;
-    margin-top: 20px;
-  }
-`;
 
 export default Main;

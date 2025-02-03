@@ -71,13 +71,18 @@ const Dashboard = () => {
       .then((response) => {
         setEvolts([...evolts, response.data.evolt]);
         setError("");
+        setTimeout(() => checkBatteryLevel(serialNumber), 500);
       })
       .catch((error) => setError(error.message));
   };
 
+  const batteryerror = "Cannot load evolt because battery is too low"
+
+  const batteryClass = batteryLevel < 25 ? "low" : "";
+
   return (
     <div className="dashboard-container">
-      <Typography variant="h4" className="dashboard-header">EVOLT Dashboard</Typography>
+      {/* <Typography variant="h4" className="dashboard-header">EVOLT Dashboard</Typography> */}
 
       <div className="top-div">
         {/* Register EVOLT Card */}
@@ -110,7 +115,7 @@ const Dashboard = () => {
       </div>
 
       {/* Error Message */}
-      {error && <Typography variant="body1" className="MuiTypography-colorError">{error}</Typography>}
+      {error && <Typography variant="body1" className="MuiTypography-colorError">{batteryerror}</Typography>}
 
       {/* Medications List */}
       <Card className="card">
@@ -119,7 +124,8 @@ const Dashboard = () => {
           {medications.map((med, index) => (
             <li key={index} className="medication-item">
               <span className="medication-name">{med.name}</span> - 
-              <span className="medication-code">{med.code}</span>
+              <span className="medication-code">{med.code}</span> -
+              <span className="medication-code">{med.weight}mg</span>
               <div className="medication-action">
                 <button>Delete</button>
                 <button>Edit</button>
@@ -129,17 +135,21 @@ const Dashboard = () => {
         </ul>
       </Card>
 
+
       {/* Battery Section */}
       {batteryLevel !== null && (
         <div className="battery-section">
           <Typography variant="h6" className="battery-level">Battery Level: {batteryLevel}%</Typography>
           <div className="battery-bar">
-            <div className={`battery-bar-fill ${batteryLevel < 25 ? "low" : ""}`} style={{ width: `${batteryLevel}%` }}></div>
+          <div key={batteryLevel}  className={`battery-bar-fill ${batteryClass}`} style={{ width: `${batteryLevel}%` }}></div>
           </div>
         </div>
       )}
     </div>
+
+    
   );
 };
 
 export default Dashboard;
+

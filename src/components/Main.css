@@ -1,13 +1,12 @@
-.inner-div {
-    /* background-color: grey; */
+ /* .inner-div {
     background-image: url("../assets/drone.avif");
     height: 500px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     border-radius: 10px;
-}
-
+} */
+/* 
 .inner-inner {
     width: 100%;
     height: 500px;
@@ -56,9 +55,9 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
+} */
 
-.grid {
+/* .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: 100%;
@@ -80,8 +79,156 @@
     border-radius: 5px;
     font-weight: bold;
     transition: background 0.3s ease;
+} */
+
+/* .view-more:hover {
+    background-color: #0056b3;
+} */ 
+
+.banner {
+    background-image: url("../assets/banner-shi.jpg");
+    height: 800px;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.view-more:hover {
-    background-color: #0056b3;
+.inner-div {
+    background-color: rgba(0, 0, 0, 0.699);
+    width: 100%;
+    height: 100%;
+}
+.tell-div {
+    color: white;
+    font-size: 70px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 190px;
+    text-align: center;
+}
+
+.start {
+    color: black;
+    background-color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 50px;
+    font-size: 13px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-left: 700px;
+    margin-top: 100px;
+}
+
+.edge {
+    font-size: 40px;
+    color: rgb(90, 90, 90);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.four-k {
+    color: rgb(90, 90, 90); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+    padding-top: 15px;
+}
+
+.div-background {
+    width: 100%;
+}
+
+.div-left {
+    color: rgb(90, 90, 90); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+    padding-top: 15px;
+}
+
+.small-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.pic-div {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 150px;
+}
+
+.left-right {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    padding-top: 160px;
+}
+
+.left-section {
+    width: 50%;
+    background-color: rgb(206, 206, 206);
+    padding: 30px;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.collect {
+    color: white;
+    font-size: 50px;
+    text-align: center;
+}
+
+.lower {
+    font-size: 20px;
+    color: rgb(95, 95, 95);
+}
+
+.right-section {
+    width: 50%;
+    background-image: url(../assets/dronee.avif);
+ background-repeat: no-repeat;
+ background-size: cover;
+}
+
+.inner-right {
+    background-color: rgba(0, 0, 0, 0.764);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    padding-top: 150px;
+    padding-bottom: 150px;
+}
+
+.final {
+    padding-top: 120px;
+}
+
+.last-div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }

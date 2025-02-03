@@ -1,26 +1,36 @@
 import "./Navbar.css"
-import logo from "../assets/logo.avif"
-import { IoPersonOutline } from "react-icons/io5";
-import { IoMdHelpCircleOutline } from "react-icons/io";
-import { FiShoppingCart } from "react-icons/fi";
+import logo from "../assets/droneshi-removebg-preview.png"
+import { useState } from "react";
+// import { IoPersonOutline } from "react-icons/io5";
+// import { IoMdHelpCircleOutline } from "react-icons/io";
+// import { FiShoppingCart } from "react-icons/fi";
+import { Link } from "react-router-dom";
 const Navbar = () => {
+
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
   return (
    <>
       <nav className="main">
-        <img src={logo} alt="" className="logo" />
-
-        
+       <Link className="logo-shi"><img src={logo} alt="" className="logo"/><span className="text"> SquaDrone </span></Link>
 
         <div className="sec-nav">
-            <a href="#" className="link"> Collections</a>
-            <a href="#" className="link">Guide</a>
-            <a href="#" className="link">Contact</a>
+            <Link  className="link">Home</Link>
+            <Link  className="link">About us</Link>
+            <Link  className="link">Services</Link>
+            <Link  className="link">Dashboard</Link>
+            <Link className="link">Contact</Link>
+            <div className="special"><button className="special-link" onClick={toggleDropdown}>Account</button>
+            {isOpen && (
+        <div className="option-shi">
+          <Link to="/login" className="link">Login</Link>
+          <Link to="/register" className="link">Register</Link>
         </div>
-
-        <div className="sec-nav">
-            <a href="#" className="link"><IoPersonOutline/> Account</a>
-            <a href="#" className="link"><IoMdHelpCircleOutline/> Help</a>
-            <a href="#" className="link"><FiShoppingCart/> Cart</a>
+      )}
+            </div>
         </div>
       </nav>
    </>
