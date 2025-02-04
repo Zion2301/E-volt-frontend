@@ -10,56 +10,7 @@ import another_drone from "../assets/drone-ig.avif"
 import Footer from "./Footer";
 
 const Main = () => {
-    // const [items, setItems] = useState([]);
-    // const [loading, setLoading] = useState(true);
-    // const [searchTerm, setSearchTerm] = useState(""); // Search state
-
-    // useEffect(() => {
-    //     const fetchProducts = async () => {
-    //         try {
-    //             const response = await axios.get('/api/evtols');
-
-    //             console.log("Full API Response:", response.data);
-
-    //             if (!Array.isArray(response.data.evolts)) {
-    //                 console.error("Expected an array but got:", response.data.evolts);
-    //                 return;
-    //             }
-
-    //             setItems(response.data.evolts);
-    //             setLoading(false);
-    //         } catch (error) {
-    //             console.error("Error fetching products:", error);
-    //             alert("Failed to fetch products. Check console for details.");
-    //         }
-    //     };
-
-    //     console.log("Fetching products...");
-    //     fetchProducts();
-    // }, []);
-
-    // // Function to filter items based on search input
-    // const filteredItems = items.filter((item) =>
-    //     item.serialNumber.toLowerCase().includes(searchTerm.toLowerCase())
-    // );
-
-    // if (loading) {
-    //     return (
-    //         <StyledWrapper>
-    //             <div className="dot-spinner">
-    //                 <div className="dot-spinner__dot" />
-    //                 <div className="dot-spinner__dot" />
-    //                 <div className="dot-spinner__dot" />
-    //                 <div className="dot-spinner__dot" />
-    //                 <div className="dot-spinner__dot" />
-    //                 <div className="dot-spinner__dot" />
-    //                 <div className="dot-spinner__dot" />
-    //                 <div className="dot-spinner__dot" />
-    //             </div>
-    //         </StyledWrapper>
-    //     );
-    // }
-
+   
     return (
         <>
             {/* <section className="banner"> */}
@@ -74,38 +25,8 @@ const Main = () => {
                     </div>
                 </div> */}
 
-                {/* Search Bar */}
-                {/* <input
-                    type="search"
-                    className="inp"
-                    placeholder="Search by Serial Number..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                /> */}
+                
 
-                {/* Grid for Products */}
-                {/* <div className="grid">
-                    {filteredItems.length > 0 ? (
-                        filteredItems.map((item) => (
-                            <div className="product" key={item.id}>
-                                <img src={img} alt="" className="idk" />
-                                <h2 className="title">{item.serialNumber}</h2>
-                                <p>{item.weightLimit}mg</p>
-                                <p>{item.batteryLevel}%</p>
-                                <p>{item.weight}</p>
-                                <p>{item.state}</p>
-                                <Link 
-                                    to="/dashboard" 
-                                    className="view-more">
-                                    Add Medication →
-                                </Link>
-                            </div>
-                        ))
-                    ) : (
-                        <p className="no-results">No results found</p>
-                    )}
-                </div> */}
-            {/* </section> */}
 
             <section className="banner">
                 <div className="inner-div">
