@@ -46,6 +46,9 @@ const StyledWrapper = styled.div`
     padding: 20px;
     border-radius: 20px;
     position: relative;
+    border: 1px solid grey;
+    margin-left: 550px;
+    margin-top: 100px
   }
 
   .title {
