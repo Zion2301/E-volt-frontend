@@ -18,10 +18,10 @@ const Navbar = () => {
        <Link className="logo-shi"><img src={logo} alt="" className="logo"/><span className="text"> SquaDrone </span></Link>
 
         <div className="sec-nav">
-            <Link  className="link">Home</Link>
-            <Link  className="link">About us</Link>
-            <Link  className="link">Services</Link>
-            <Link  className="link">Dashboard</Link>
+            <Link to="/" className="link">Home</Link>
+            <Link className="link">About us</Link>
+            <Link to="/service" className="link">Services</Link>
+            <Link to="/dashboard" className="link">Dashboard</Link>
             <Link className="link">Contact</Link>
             <div className="special"><button className="special-link" onClick={toggleDropdown}>Account</button>
             {isOpen && (

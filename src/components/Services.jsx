@@ -4,11 +4,30 @@ import axios from "axios";
 import img from "../assets/drone-background.png"
 // import { Link } from "react-router-dom";
 import styled from 'styled-components';
+import Modal from "./Modal";
+
 
 const Services = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const openModal = (item) => {
+        console.log(item)
+        setSelectedItem(item);
+        setIsModalOpen(true);
+      };
+    
+      const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedItem(null);
+      };
+
+      const filteredItems = items.filter(item => 
+        item.serialNumber.toLowerCase().includes(searchTerm.toLowerCase())
+      );
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -87,38 +106,41 @@ const Services = () => {
 
                 {/* Grid for Products */}
                 <div className="grid">
-                    {items.filter(item => item.serialNumber.toLowerCase().includes(searchTerm.toLowerCase())).length > 0 ? (
-                        items
-                            .filter(item => item.serialNumber.toLowerCase().includes(searchTerm.toLowerCase()))
-                            .map((item) => (
-                                <div className="product" key={item.id}>
-                                    <img src={img} alt="" className="idk" />
-                                    <h2 className="title">{item.serialNumber}</h2>
-                                    <p>{item.weightLimit}mg</p>
-                                    <p>{item.weight}</p>
-                                    <p>{item.state}</p>
+                {filteredItems.length > 0 ? (
+      filteredItems.map((item) => (
+        <div className="product" key={item.id || item.serialNumber}> {/* Ensure unique key */}
+          <img src={img} alt="" className="idk" />
+          <h2 className="title">{item.serialNumber}</h2>
+          <p>{item.weightLimit}mg</p>
+          <p>{item.weight}</p>
+          <p>{item.state}</p>
 
-                                    {/* Battery Bar */}
-                                    <div className="battery-container">
-                                        <div
-                                            className="battery-bar"
-                                            style={{
-                                                width: `${item.batteryLevel}%`,
-                                                backgroundColor: item.batteryLevel < 25 ? "red" : "green"
-                                            }}
-                                        ></div>
-                                    </div>
-                                    <p className="battery-text">{item.batteryLevel}%</p>
+          {/* Battery Bar */}
+          <div className="battery-container">
+            <div
+              className="battery-bar"
+              style={{
+                width: `${item.batteryLevel}%`,
+                backgroundColor: item.batteryLevel < 25 ? "red" : "green"
+              }}
+            ></div>
+          </div>
+          <p className="battery-text">{item.batteryLevel}%</p>
 
+          <button className="view-more" onClick={() => openModal(item)}>
+            View More →
+          </button>
+        </div>
+      ))
+    ) : (
+      <p className="no-results">No results found</p>
+    )}
 
-                                    <button className="view-more">
-                                        View More →
-                                    </button>
-                                </div>
-                            ))
-                    ) : (
-                        <p className="no-results">No results found</p>
-                    )}
+    {/* Render Modal */}
+    {isModalOpen && selectedItem && (
+      <Modal item={selectedItem} onClose={closeModal} />
+    )}
+
                 </div>
             </section>
         </>

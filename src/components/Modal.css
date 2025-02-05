@@ -1,0 +1,118 @@
+/* Modal container */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px); /* Background blur effect */
+    z-index: 1000;
+    padding: 20px;
+  }
+  
+  /* Modal content box */
+  .modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;  /* Needed for positioning the close button */
+    animation: fadeIn 0.3s ease-out;  /* Smooth fade-in animation */
+  }
+  
+  /* Title style */
+  .modal-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  /* Info text style */
+  .modal-info {
+    font-size: 1.25em;
+    margin-bottom: 25px;
+    color: #555;
+  }
+  
+  /* Button container */
+  .modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+  }
+  
+  /* Close button in top-right */
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2em;
+    background: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  
+  .close-btn:hover {
+    color: #f44336;  /* Change color on hover */
+  }
+  
+  /* Close button inside modal */
+  .close-btn-modal {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s;
+  }
+  
+  .close-btn-modal:hover {
+    background-color: #d32f2f;
+  }
+  
+  /* Checkout button */
+  .checkout-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s;
+  }
+  
+  .checkout-btn:hover {
+    background-color: #388e3c;
+  }
+  
+  /* Fade-in animation */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .modal-div {
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  
