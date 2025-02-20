@@ -7,7 +7,7 @@ import Main from './components/Main';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Signup from './components/Signup';
 import Login from './components/Login';
-// import Userdashboard from './components/Userdashboard';
+ import Userdashboard from './components/Userdashboard';
 import Services from './components/Services';
 import Dashboard from './components/Dashboard';
 
@@ -24,6 +24,7 @@ function App() {
          <Route path='/service' element={<Services/>}></Route>
          <Route path='/login' element={<Login/>}></Route>
          <Route path='/register' element={<Signup/>}></Route>
+         <Route path='/user' element={<Userdashboard/>}></Route>
        </Routes>
        {/* <Footer /> */}
      </Router>

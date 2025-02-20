@@ -1,24 +1,62 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const Login = () => {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:3020/api/auth/login", formData);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("name", res.data.user.name);
+  
+      Swal.fire({
+        icon: "success",
+        title: "Login Successful",
+        text: "You have successfully signed up!",
+      }).then(() => {
+        if (formData.email === "admin@gmail.com" && formData.password === "admin") {
+          navigate("/dashboard"); // Redirect to admin dashboard
+        } else {
+          navigate("/user"); // Redirect to user dashboard
+        }
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: err.response?.data?.message || "Something went wrong. Please try again.",
+      });
+    }
+  };
   return (
     <>
          <StyledWrapper>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <p className="form-title">Sign in to your account</p>
         <div className="input-container">
-          <input type="email" placeholder="Enter email" />
+          <input type="email" placeholder="Enter email" required onChange={handleChange} name='email'/>
           <span>
           </span>
         </div>
         <div className="input-container">
-          <input type="password" placeholder="Enter password" />
+          <input type="password" placeholder="Enter password" required onChange={handleChange} name='password'/>
         </div>
         <button type="submit" className="submit">
           Sign in
         </button>
         <p className="signup-link">
           No account?
-          <a href>Sign up</a>
+          <Link to="/register">Sign Up</Link>
         </p>
       </form>
     </StyledWrapper>

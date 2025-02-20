@@ -1,35 +1,66 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import Swal from 'sweetalert2';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 const Signup = () => {
+  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post("http://localhost:3020/api/auth/signup", formData);
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("name", res.data.user.name);
+  
+      Swal.fire({
+        icon: "success",
+        title: "Registration Successful",
+        text: "You have successfully signed up!",
+      }).then(() => {
+        if (formData.email === "admin@gmail.com" && formData.password === "admin") {
+          navigate("/dashboard"); // Redirect to admin dashboard
+        } else {
+          navigate("/user"); // Redirect to user dashboard
+        }
+      });
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Registration Failed",
+        text: err.response?.data?.message || "Something went wrong. Please try again.",
+      });
+    }
+  };
+  
   return (
     <>
      <StyledWrapper>
-      <form className="form">
+      <form className="form" onSubmit={handleSubmit}>
         <p className="title">Register </p>
         <p className="message">Signup now and get full access to our app. </p>
         <div className="flex">
           <label>
-            <input required placeholder type="text" className="input" />
-            <span>Firstname</span>
-          </label>
-          <label>
-            <input required placeholder type="text" className="input" />
-            <span>Lastname</span>
+            <input required type="text" className="input" onChange={handleChange} name="name"/>
+            <span>FullName</span>
           </label>
         </div>  
         <label>
-          <input required placeholder type="email" className="input" />
+          <input required  type="email" className="input" name='email' onChange={handleChange}/>
           <span>Email</span>
         </label> 
         <label>
-          <input required placeholder type="password" className="input" />
+          <input required  type="password" className="input" name='password' onChange={handleChange}/>
           <span>Password</span>
         </label>
-        <label>
-          <input required placeholder type="password" className="input" />
-          <span>Confirm password</span>
-        </label>
-        <button className="submit">Submit</button>
-        <p className="signin">Already have an acount ? <a href="#">Signin</a> </p>
+        <button className="submit" type='submit'>Submit</button>
+        <p className="signin">Already have an acount ? <Link to="/login">Sign In</Link> </p>
       </form>
     </StyledWrapper>
     </>

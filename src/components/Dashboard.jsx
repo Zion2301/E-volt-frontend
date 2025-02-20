@@ -39,7 +39,7 @@ const Dashboard = () => {
   // Load eVOLT and medication data on mount
   useEffect(() => {
     axios
-      .get("/api/evtols")
+      .get("http://localhost:3020/api/evtols")
       .then((response) => setEvolts(response.data.evolts))
       .catch((error) => setError(error.message));
 
@@ -53,7 +53,7 @@ const Dashboard = () => {
   // Check battery level
   const checkBatteryLevel = (serialNumber) => {
     axios
-      .get(`/api/evtols/battery-check/${serialNumber}`)
+      .get(`http://localhost:3020/api/evtols/battery-check/${serialNumber}`)
       .then((response) => setBatteryLevel(response.data.batteryLevel))
       .catch((error) => setError(error.message));
   };
@@ -61,7 +61,7 @@ const Dashboard = () => {
   // Load medications for selected eVOLT
   const loadMedications = (serialNumber) => {
     axios
-      .get(`/api/evtols/medications/${serialNumber}`)
+      .get(`http://localhost:3020/api/evtols/medications/${serialNumber}`)
       .then((response) => setMedications(response.data.medications))
       .catch((error) => setError(error.message));
   };
@@ -74,7 +74,7 @@ const Dashboard = () => {
     }
   
     axios
-      .post(`/api/evtols/load-medication/${selectedEvolt}`, medicationData)
+      .post(`http://localhost:3020/api/evtols/load-medication/${selectedEvolt}`, medicationData)
       .then(() => {
         setMedications([...medications, medicationData]);
         setError("");
@@ -108,7 +108,6 @@ const Dashboard = () => {
   const handleRegisterEVOLT = () => {
     const { serialNumber, state, batteryLevel, weight } = evoltData;
   
-    // Convert batteryLevel to a number
     const batteryLevelInt = Number(batteryLevel);
     if (isNaN(batteryLevelInt)) {
       Swal.fire({
@@ -120,8 +119,15 @@ const Dashboard = () => {
       return;
     }
   
+    // Retrieve the token (assuming it's stored in localStorage)
+    const token = localStorage.getItem("token");
+  
     axios
-      .post("/api/evtols/register", { serialNumber, state, batteryLevel: batteryLevelInt, weight })
+      .post(
+        "http://localhost:3020/api/evtols/register",
+        { serialNumber, state, batteryLevel: batteryLevelInt, weight },
+        { headers: { Authorization: `Bearer ${token}` } } // Add token to headers
+      )
       .then((response) => {
         setEvolts([...evolts, response.data.evolt]);
         setError("");
@@ -133,7 +139,6 @@ const Dashboard = () => {
           confirmButtonText: "OK",
         });
   
-        // Reset only the E-volt form fields
         setEvoltData({
           serialNumber: "",
           state: "",
@@ -154,9 +159,7 @@ const Dashboard = () => {
       });
   };
   
-
-  const batteryerror = "Cannot load evolt because battery is too low";
-  const batteryClass = batteryLevel < 25 ? "low" : "";
+  
 
   // Dynamically calculate the data for the charts
   const lineChartData = [
@@ -279,7 +282,8 @@ const Dashboard = () => {
       </div>
 
       <div className="right-dash">
-      <div className="form-box">
+     <StyledWrapper>
+     <div className="form-box">
   <form className="form" onSubmit={(e) => { e.preventDefault(); handleRegisterEVOLT(); }}>
     <span className="title">Register E-volt</span>
     <span className="subtitle">Create a new Evolt</span>
@@ -344,6 +348,7 @@ const Dashboard = () => {
     {error && <p className="error">{error}</p>}
   </form>
 </div>
+     </StyledWrapper>
 
 
 <StyledWrapper>
