@@ -36,74 +36,90 @@ const Dashboard = () => {
   const weightOptions = ["LIGHTWEIGHT", "MIDDLEWEIGHT", "HEAVYWEIGHT", "CRUISEWEIGHT"];
   const stateOptions = ["IDLE", "LOADING", "LOADED", "DELIVERING", "DELIVERED", "RETURNING"];
 
-  // Load eVOLT and medication data on mount
-  useEffect(() => {
-    axios
-      .get("http://localhost:3020/api/evtols")
-      .then((response) => setEvolts(response.data.evolts))
-      .catch((error) => setError(error.message));
+  // Retrieve the token (assuming it's stored in localStorage)
+const token = localStorage.getItem("token");
 
-    // Fetch medication data
-    if (selectedEvolt) {
-      checkBatteryLevel(selectedEvolt);
-      loadMedications(selectedEvolt);
-    }
-  }, [selectedEvolt]);
+// Load eVOLT and medication data on mount
+useEffect(() => {
+  axios
+    .get("http://localhost:3020/api/evtols", {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then((response) => setEvolts(response.data.evolts))
+    .catch((error) => setError(error.message));
 
-  // Check battery level
-  const checkBatteryLevel = (serialNumber) => {
-    axios
-      .get(`http://localhost:3020/api/evtols/battery-check/${serialNumber}`)
-      .then((response) => setBatteryLevel(response.data.batteryLevel))
-      .catch((error) => setError(error.message));
-  };
+  // Fetch medication data
+  if (selectedEvolt) {
+    checkBatteryLevel(selectedEvolt);
+    loadMedications(selectedEvolt);
+  }
+}, [selectedEvolt]);
 
-  // Load medications for selected eVOLT
-  const loadMedications = (serialNumber) => {
-    axios
-      .get(`http://localhost:3020/api/evtols/medications/${serialNumber}`)
-      .then((response) => setMedications(response.data.medications))
-      .catch((error) => setError(error.message));
-  };
+// Check battery level
+const checkBatteryLevel = (serialNumber) => {
+  axios
+    .get(`http://localhost:3020/api/evtols/battery-check/${serialNumber}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then((response) => setBatteryLevel(response.data.batteryLevel))
+    .catch((error) => setError(error.message));
+};
 
-  // Handle medication form submission
-  const handleLoadMedication = () => {
-    if (batteryLevel < 25) {
-      setError("Battery level is too low to load medications!");
-      return;
-    }
-  
-    axios
-      .post(`http://localhost:3020/api/evtols/load-medication/${selectedEvolt}`, medicationData)
-      .then(() => {
-        setMedications([...medications, medicationData]);
-        setError("");
-  
-        Swal.fire({
-          title: "Success!",
-          text: "Medication loaded successfully.",
-          icon: "success",
-          confirmButtonText: "OK",
-        });
-  
-        // Reset form after success
-        setMedicationData({
-          name: "",
-          weight: "",
-          code: "",
-          image: "",
-        });
-      })
-      .catch((error) => {
-        setError(error.message);
-        Swal.fire({
-          title: "Error",
-          text: "Failed to load medication.",
-          icon: "error",
-          confirmButtonText: "OK",
-        });
+// Load medications for selected eVOLT
+const loadMedications = (serialNumber) => {
+  axios
+    .get(`http://localhost:3020/api/evtols/medications/${serialNumber}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then((response) => setMedications(response.data.medications))
+    .catch((error) => setError(error.message));
+};
+
+// Handle medication form submission
+const handleLoadMedication = () => {
+  if (batteryLevel < 25) {
+    setError("Battery level is too low to load medications!");
+    return;
+  }
+
+  axios
+    .post(
+      `http://localhost:3020/api/evtols/load-medication/${selectedEvolt}`,
+      medicationData,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    )
+    .then(() => {
+      setMedications([...medications, medicationData]);
+      setError("");
+
+      Swal.fire({
+        title: "Success!",
+        text: "Medication loaded successfully.",
+        icon: "success",
+        confirmButtonText: "OK",
       });
-  };
+
+      // Reset form after success
+      setMedicationData({
+        name: "",
+        weight: "",
+        code: "",
+        image: "",
+      });
+    })
+    .catch((error) => {
+      setError(error.message);
+      Swal.fire({
+        title: "Error",
+        text: "Failed to load medication.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+    });
+};
+
   // Handle eVOLT registration
   const handleRegisterEVOLT = () => {
     const { serialNumber, state, batteryLevel, weight } = evoltData;
@@ -119,8 +135,6 @@ const Dashboard = () => {
       return;
     }
   
-    // Retrieve the token (assuming it's stored in localStorage)
-    const token = localStorage.getItem("token");
   
     axios
       .post(
@@ -251,7 +265,7 @@ const Dashboard = () => {
         )}
 
         <div className="table-evolts">
-          <h3 className="top">Top Products</h3>
+          <h3 className="top">All Evolts</h3>
           <div className="table-container">
             <table className="custom-table">
               <thead>
@@ -271,7 +285,7 @@ const Dashboard = () => {
                       </div>
                     </td>
                     <td>{evolt.weightLimit} kg</td>
-                    <td>{evolt.weight} kg</td>
+                    <td>{evolt.weight}</td>
                     <td>{evolt.state}</td>
                   </tr>
                 ))}
@@ -389,16 +403,6 @@ const Dashboard = () => {
           type="text"
           value={medicationData.code}
           onChange={(e) => setMedicationData({ ...medicationData, code: e.target.value })}
-        />
-      </div>
-
-      <div className="form-item">
-        <label>Medication Picture (URL)</label>
-        <TextField
-          fullWidth
-          type="text"
-          value={medicationData.image}
-          onChange={(e) => setMedicationData({ ...medicationData, image: e.target.value })}
         />
       </div>
 

@@ -3,6 +3,15 @@
     text-decoration: none;
 }
 
+.logout {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .logo-shi {
     color: black;
     text-decoration: none;
